@@ -14,11 +14,11 @@
  * @return {number} milliseconds in timestamp.
  *
  * @example:
-* '01 Jan 1970 00:00:00 UTC' => 0
+ * '01 Jan 1970 00:00:00 UTC' => 0
  * '04 Dec 1995 00:12:00 UTC' => 818035920000
  */
 function dateToTimestamp(date) {
-  return getTime(date);
+  return Date.parse(date);
 }
 
 /**
@@ -32,7 +32,7 @@ function dateToTimestamp(date) {
  * Date(2015, 10, 20, 23, 15, 1) => '23:15:01'
  */
 function getTime(date) {
-  return date.split(' ')[4];
+  return date.toString().split(' ')[4];
 }
 
 /**
@@ -48,8 +48,8 @@ function getTime(date) {
  */
 function getDayName(date) {
   const thatDay = new Date(Date.parse(date));
-  const options = { weekday: "long" };
-  const resDay = new Intl.DateTimeFormat("en-US", options).format(thatDay);
+  const options = { weekday: 'long' };
+  const resDay = new Intl.DateTimeFormat('en-US', options).format(thatDay);
   return resDay;
 }
 
