@@ -222,8 +222,17 @@ function getWeekNumberByDate(date) {
  * Date(2024, 0, 13) => Date(2024, 8, 13)
  * Date(2023, 1, 1) => Date(2023, 9, 13)
  */
-function getNextFridayThe13th(/* date */) {
-  throw new Error('Not implemented');
+function getNextFridayThe13th(date) {
+  const thisDate = new Date(date);
+  const thisYear = getFullYear(date);
+  let thisMon = getMonth(thisDate);
+
+  thisMon = getDate(thisDate) < 13 ? thisMon : thisMon + 1;
+  let result = undefined;
+  for (let i = thisMon; i < 12; i += 1) {
+    result = new Date(Date.parse(`${thisYear}, ${i}, 13`));
+    if(getDay(result) === 5) return result;
+  }
 }
 
 /**
@@ -237,8 +246,12 @@ function getNextFridayThe13th(/* date */) {
  * Date(2024, 5, 1) => 2
  * Date(2024, 10, 10) => 4
  */
-function getQuarter(/* date */) {
-  throw new Error('Not implemented');
+function getQuarter(date) {
+  const thisDate = new Date(date);
+  if(getMonth(thisDate) < 4) return 1;
+  if(getMonth(thisDate) < 7) return 2;
+  if(getMonth(thisDate) < 10) return 3;
+  if(getMonth(thisDate) < 13) return 4;
 }
 
 /**
@@ -259,8 +272,26 @@ function getQuarter(/* date */) {
  * { start: '01-01-2024', end: '15-01-2024' }, 1, 3 => ['01-01-2024', '05-01-2024', '09-01-2024', '13-01-2024']
  * { start: '01-01-2024', end: '10-01-2024' }, 1, 1 => ['01-01-2024', '03-01-2024', '05-01-2024', '07-01-2024', '09-01-2024']
  */
-function getWorkSchedule(/* period, countWorkDays, countOffDays */) {
-  throw new Error('Not implemented');
+function getWorkSchedule(period, countWorkDays, countOffDays) {
+  const startDate = new Date(Date.parse(period.start));
+  const startMonth = getMonth(startDate);
+  const endDate = new Date(Date.parse(period.end));
+  const endMonth = getMonth(endDate);
+  let workDaysLeftOver = 0;
+  let offDaysLeftOver = 0;
+  const result = [];
+  for (let i = startMonth; i <= endMonth; i += 1) {
+    const dateStart = i === startMonth ? getDate(startDate) : 1;
+    const lastMonthDay = new Date(getFullYear(startDate), i, 0);
+    const dateEnd = i === endMonth ? endDate.getDate() : lastMonthDay.getDate();
+    for (let j = dateStart; j <= dateEnd; i += 1) {
+      
+      
+    }
+
+
+  }
+  
 }
 
 /**
